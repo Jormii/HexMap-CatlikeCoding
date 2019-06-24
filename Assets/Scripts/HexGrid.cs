@@ -40,6 +40,24 @@ public class HexGrid : MonoBehaviour {
         cell.color = defaultColor;
         cell.transform.SetParent (transform, false);
         cell.transform.localPosition = position;
+        if (x > 0) {
+            cell.SetNeighbour (cells[i - 1], HexDirection.W);
+        }
+
+        if (z > 0) {
+            if ((z & 1) == 0) {
+                cell.SetNeighbour (cells[i - width], HexDirection.SE);
+
+                if (x > 0) {
+                    cell.SetNeighbour (cells[i - width - 1], HexDirection.SW);
+                }
+            } else {
+                cell.SetNeighbour (cells[i - width], HexDirection.SW);
+                if (x < width - 1) {
+                    cell.SetNeighbour (cells[i - width + 1], HexDirection.SE);
+                }
+            }
+        }
 
         Text label = Instantiate<Text> (cellLabelPrefab);
         label.rectTransform.SetParent (gridCanvas.transform, false);
