@@ -14,6 +14,8 @@ public class HexMetrics {
     public const float cellPerturbStrength = 3.8f;
     public const float noiseScale = 0.003f;
     public const float elevationPerturbStrength = 1.5f;
+    public const int chunkSizeX = 5;
+    public const int chunkSizeZ = 5;
 
     private static Vector3[] corners = {
         new Vector3 (0.0f, 0.0f, outerRadius),

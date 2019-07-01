@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class HexCell : MonoBehaviour {
 
+    public HexGridChunk chunk;
     public HexCoordinates coordinates;
-    public Color color;
+
     public RectTransform uiRect;
 
-    private int elevation;
+    int elevation = int.MinValue;
+    Color color;
 
     [SerializeField]
     private HexCell[] neighbors = new HexCell[6];
@@ -33,6 +35,19 @@ public class HexCell : MonoBehaviour {
         cell.neighbors[(int) direction.Opposite ()] = this;
     }
 
+    void Refresh () {
+        if (chunk) {
+            chunk.Refresh ();
+
+            for (int i = 0; i < neighbors.Length; i++) {
+                HexCell neighbor = neighbors[i];
+                if (neighbor != null && neighbor.chunk != chunk) {
+                    neighbor.chunk.Refresh ();
+                }
+            }
+        }
+    }
+
     /*
     Properties
     */
@@ -43,9 +58,26 @@ public class HexCell : MonoBehaviour {
         }
     }
 
+    public Color Color {
+        get {
+            return color;
+        }
+        set {
+            if (color == value) {
+                return;
+            }
+            color = value;
+            Refresh ();
+        }
+    }
+
     public int Elevation {
         get => elevation;
         set {
+            if (elevation == value) {
+                return;
+            }
+
             elevation = value;
             Vector3 position = transform.localPosition;
             position.y = elevation * HexMetrics.elevationStep;
@@ -57,6 +89,8 @@ public class HexCell : MonoBehaviour {
             Vector3 uiPosition = uiRect.localPosition;
             uiPosition.z = -position.y;
             uiRect.localPosition = uiPosition;
+
+            Refresh ();
         }
     }
 

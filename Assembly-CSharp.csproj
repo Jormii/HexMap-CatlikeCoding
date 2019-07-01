@@ -61,6 +61,8 @@
      <Compile Include="Assets\Scripts\HexCoordinatesDrawer.cs" />
      <Compile Include="Assets\Scripts\HexDirections.cs" />
      <Compile Include="Assets\Scripts\HexGrid.cs" />
+     <Compile Include="Assets\Scripts\HexGridChunk.cs" />
+     <Compile Include="Assets\Scripts\HexMapCamera.cs" />
      <Compile Include="Assets\Scripts\HexMapEditor.cs" />
      <Compile Include="Assets\Scripts\HexMesh.cs" />
      <Compile Include="Assets\Scripts\HexMetrics.cs" />
