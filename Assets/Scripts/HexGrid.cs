@@ -11,15 +11,21 @@ public class HexGrid : MonoBehaviour {
     public Color defaultColor = Color.white;
     public HexCell cellPrefab;
     public Text cellLabelPrefab;
+    public Texture2D noiseSource;
 
     private HexCell[] cells;
     private Canvas gridCanvas;
     private HexMesh hexMesh;
 
+    private void OnEnable () {
+        HexMetrics.noiseSource = noiseSource;
+    }
+
     private void Awake () {
         gridCanvas = GetComponentInChildren<Canvas> ();
         hexMesh = GetComponentInChildren<HexMesh> ();
         cells = new HexCell[width * height];
+        HexMetrics.noiseSource = noiseSource;
 
         for (int z = 0, i = 0; z < height; ++z) {
             for (int x = 0; x < width; ++x) {
@@ -65,7 +71,7 @@ public class HexGrid : MonoBehaviour {
         label.text = cell.coordinates.ToStringOnSeparateLines ();
         cell.uiRect = label.rectTransform;
 
-        cell.Elevation = 0; // Debug text does not show up at the correct height
+        cell.Elevation = 0;
     }
 
     private void Start () {
