@@ -822,7 +822,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: -3.618097e+17, z: 1.61e-43, w: 0.0546875}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1553,6 +1553,7 @@ MonoBehaviour:
     type: 3}
   cellLabelPrefab: {fileID: 3763416982608704079, guid: f5ffe88a7a6fb8da0a9d88851dadfd70,
     type: 3}
+  noiseSource: {fileID: 2800000, guid: 32b17d5da0fbdf58e9bb3ef4cd98bea1, type: 3}
 --- !u!4 &1164756658
 Transform:
   m_ObjectHideFlags: 0
