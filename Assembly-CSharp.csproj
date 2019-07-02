@@ -66,6 +66,8 @@
      <Compile Include="Assets\Scripts\HexMapEditor.cs" />
      <Compile Include="Assets\Scripts\HexMesh.cs" />
      <Compile Include="Assets\Scripts\HexMetrics.cs" />
+     <Compile Include="Assets\Scripts\ListPool.cs" />
+     <None Include="Assets\Shaders\RiverShader.shader" />
      <None Include="Assets\Shaders\CellShader.shader" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/home/jorge/Escritorio/Programas/HexMap - CatLikeCoding/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class HexMapEditor : MonoBehaviour {
 
+    enum OptionalToggle {
+        Ignore,
+        Yes,
+        No
+    }
+
     public Color[] colors;
     public HexGrid hexGrid;
 
@@ -14,6 +20,10 @@ public class HexMapEditor : MonoBehaviour {
     int brushSize;
     bool applyColor;
     bool applyElevation = true;
+    OptionalToggle riverMode;
+    bool isDrag;
+    HexDirection dragDirection;
+    HexCell previousCell;
 
     private void Awake () {
         activeElevation = 0;
@@ -46,13 +56,19 @@ public class HexMapEditor : MonoBehaviour {
         brushSize = (int) size;
     }
 
+    public void SetRiverMode (int mode) {
+        riverMode = (OptionalToggle) mode;
+    }
+
     public void ShowUI (Toggle toggle) {
         hexGrid.ShowUI (toggle.isOn);
     }
 
     private void Update () {
-        if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) {
+        if (Input.GetMouseButton (0) && !EventSystem.current.IsPointerOverGameObject ()) {
             HandleInput ();
+        } else {
+            previousCell = null;
         }
     }
 
@@ -60,8 +76,29 @@ public class HexMapEditor : MonoBehaviour {
         Ray inputRay = Camera.main.ScreenPointToRay (Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast (inputRay, out hit)) {
-            EditCells (hexGrid.GetCell (hit.point));
+            HexCell currentCell = hexGrid.GetCell (hit.point);
+            if (previousCell && previousCell != currentCell) {
+                ValidateDrag (currentCell);
+            } else {
+                isDrag = false;
+            }
+            EditCells (currentCell);
+            previousCell = currentCell;
+        } else {
+            previousCell = null;
         }
+    }
+
+    void ValidateDrag (HexCell currentCell) {
+        for (
+            dragDirection = HexDirection.NE; dragDirection <= HexDirection.NW; dragDirection++
+        ) {
+            if (previousCell.GetNeighbour (dragDirection) == currentCell) {
+                isDrag = true;
+                return;
+            }
+        }
+        isDrag = false;
     }
 
     void EditCells (HexCell center) {
@@ -89,6 +126,16 @@ public class HexMapEditor : MonoBehaviour {
             if (applyElevation) {
                 cell.Elevation = activeElevation;
             }
+
+            if (riverMode == OptionalToggle.No) {
+                cell.RemoveRiver ();
+            } else if (isDrag && riverMode == OptionalToggle.Yes) {
+                HexCell otherCell = cell.GetNeighbour (dragDirection.Opposite ());
+                if (otherCell) {
+                    otherCell.SetOutgoingRiver (dragDirection);
+                }
+            }
         }
     }
+
 }
