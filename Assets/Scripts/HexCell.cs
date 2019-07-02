@@ -205,7 +205,14 @@ public class HexCell : MonoBehaviour {
     public float StreamBedY {
         get {
             return (elevation + HexMetrics.streamBedElevationOffset) *
-            HexMetrics.elevationStep;
+                HexMetrics.elevationStep;
+        }
+    }
+
+    public float RiverSurfaceY {
+        get {
+            return (elevation + HexMetrics.riverSurfaceElevationOffset) *
+                HexMetrics.elevationStep;
         }
     }
 

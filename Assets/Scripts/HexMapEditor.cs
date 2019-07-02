@@ -65,7 +65,7 @@ public class HexMapEditor : MonoBehaviour {
     }
 
     private void Update () {
-        if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) {
+        if (Input.GetMouseButton (0) && !EventSystem.current.IsPointerOverGameObject ()) {
             HandleInput ();
         } else {
             previousCell = null;
