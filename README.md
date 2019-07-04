@@ -1,2 +1,2 @@
 # HexMap-CatlikeCoding
-Hexagonal Map in Unity using Catlike Coding tutorial (https://catlikecoding.com/unity/tutorials/hex-map/)
+Hexagonal Map in Unity following Catlike Coding's tutorial (https://catlikecoding.com/unity/tutorials/hex-map/)
